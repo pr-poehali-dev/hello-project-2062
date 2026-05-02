@@ -1153,10 +1153,14 @@ export default function Index() {
   const healthColor = planetHealth > 60 ? "#39ff14" : planetHealth > 30 ? "#ffb347" : "#ff0040";
 
   const btnStyle = (accent: string) => ({
-    background: `linear-gradient(135deg, ${accent}33, ${accent}11)`,
-    border: `1px solid ${accent}88`,
-    boxShadow: `0 0 18px ${accent}44`,
+    background: `linear-gradient(180deg, ${accent}55 0%, ${accent}22 50%, ${accent}08 100%)`,
+    border: `1px solid ${accent}bb`,
+    borderBottom: `4px solid ${accent}ff`,
+    boxShadow: `0 6px 24px ${accent}55, 0 2px 8px ${accent}33, inset 0 1px 0 ${accent}88`,
     fontFamily: "'Exo 2', sans-serif",
+    textShadow: `0 0 12px ${accent}cc`,
+    letterSpacing: "0.15em",
+    transition: "all 0.12s ease",
   });
 
   return (
@@ -1185,8 +1189,13 @@ export default function Index() {
               { label: "👥 Мультиплеер", accent: "#ff9900", onClick: () => setGameMode("multiplayer_select") },
             ].map(btn => (
               <button key={btn.label} onClick={btn.onClick}
-                className="px-8 py-4 text-white font-bold tracking-widest uppercase transition-all duration-300 hover:scale-105"
-                style={btnStyle(btn.accent)}>
+                className="px-8 py-4 text-white font-bold tracking-widest uppercase"
+                style={btnStyle(btn.accent)}
+                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px) scale(1.03)"; e.currentTarget.style.boxShadow = `0 10px 32px ${btn.accent}88, 0 4px 12px ${btn.accent}55, inset 0 1px 0 ${btn.accent}aa`; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = `0 6px 24px ${btn.accent}55, 0 2px 8px ${btn.accent}33, inset 0 1px 0 ${btn.accent}88`; }}
+                onMouseDown={e => { e.currentTarget.style.transform = "translateY(3px)"; e.currentTarget.style.borderBottom = `1px solid ${btn.accent}ff`; }}
+                onMouseUp={e => { e.currentTarget.style.transform = "translateY(-2px) scale(1.03)"; e.currentTarget.style.borderBottom = `4px solid ${btn.accent}ff`; }}
+              >
                 {btn.label}
               </button>
             ))}
@@ -1249,7 +1258,11 @@ export default function Index() {
             </div>
             <div className="text-blue-300/50 text-xs mb-4">Боеприпасы не ограничены • Все оружия доступны</div>
             <button onClick={startSandbox} className="w-full py-3 text-white font-bold tracking-widest uppercase"
-              style={{ background: "linear-gradient(135deg,rgba(0,100,200,0.5),rgba(0,50,150,0.9))", border: "1px solid rgba(0,200,255,0.5)" }}>
+              style={{ background: "linear-gradient(180deg,rgba(0,160,255,0.5) 0%,rgba(0,80,180,0.3) 50%,rgba(0,40,120,0.15) 100%)", border: "1px solid rgba(0,200,255,0.7)", borderBottom: "4px solid rgba(0,200,255,1)", boxShadow: "0 6px 24px rgba(0,150,255,0.5), inset 0 1px 0 rgba(0,220,255,0.5)", textShadow: "0 0 12px rgba(0,200,255,0.9)" }}
+              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 10px 32px rgba(0,180,255,0.7), inset 0 1px 0 rgba(0,220,255,0.6)"; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = "0 6px 24px rgba(0,150,255,0.5), inset 0 1px 0 rgba(0,220,255,0.5)"; }}
+              onMouseDown={e => { e.currentTarget.style.transform = "translateY(3px)"; e.currentTarget.style.borderBottom = "1px solid rgba(0,200,255,1)"; }}
+              onMouseUp={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.borderBottom = "4px solid rgba(0,200,255,1)"; }}>
               НАЧАТЬ РАЗРУШЕНИЕ
             </button>
           </div>
@@ -1283,7 +1296,11 @@ export default function Index() {
             </div>
             <button onClick={() => { setShowMultiplayerLobby(false); startMultiplayer(); }}
               className="w-full py-3 text-white font-bold tracking-widest uppercase"
-              style={{ background: "linear-gradient(135deg,rgba(200,100,0,0.5),rgba(100,40,0,0.9))", border: "1px solid rgba(255,200,0,0.5)" }}>
+              style={{ background: "linear-gradient(180deg,rgba(255,160,0,0.5) 0%,rgba(200,80,0,0.3) 50%,rgba(120,40,0,0.15) 100%)", border: "1px solid rgba(255,200,0,0.7)", borderBottom: "4px solid rgba(255,200,0,1)", boxShadow: "0 6px 24px rgba(255,150,0,0.5), inset 0 1px 0 rgba(255,220,0,0.5)", textShadow: "0 0 12px rgba(255,200,0,0.9)" }}
+              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 10px 32px rgba(255,180,0,0.7), inset 0 1px 0 rgba(255,220,0,0.6)"; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.boxShadow = "0 6px 24px rgba(255,150,0,0.5), inset 0 1px 0 rgba(255,220,0,0.5)"; }}
+              onMouseDown={e => { e.currentTarget.style.transform = "translateY(3px)"; e.currentTarget.style.borderBottom = "1px solid rgba(255,200,0,1)"; }}
+              onMouseUp={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.borderBottom = "4px solid rgba(255,200,0,1)"; }}>
               НАЧАТЬ БОЙ
             </button>
           </div>
@@ -1331,14 +1348,23 @@ export default function Index() {
               return (
                 <button key={w} onClick={() => { ensureAudio(); setSelectedWeapon(w); }}
                   disabled={!hasAmmo}
-                  className="flex flex-col items-center p-3 transition-all duration-200"
+                  className="flex flex-col items-center p-3"
                   style={{
-                    background: selected ? "rgba(102,0,204,0.5)" : "rgba(0,0,20,0.7)",
-                    border: `2px solid ${selected ? "rgba(200,0,255,0.9)" : "rgba(100,100,150,0.3)"}`,
-                    minWidth: 70, opacity: hasAmmo ? 1 : 0.35,
-                    boxShadow: selected ? "0 0 20px rgba(150,0,255,0.6)" : "none",
-                    transform: selected ? "translateY(-4px)" : "none",
-                  }}>
+                    background: selected
+                      ? "linear-gradient(180deg,rgba(180,0,255,0.55) 0%,rgba(100,0,200,0.35) 50%,rgba(50,0,120,0.2) 100%)"
+                      : "linear-gradient(180deg,rgba(60,60,100,0.4) 0%,rgba(10,10,30,0.6) 100%)",
+                    border: `1px solid ${selected ? "rgba(220,0,255,0.9)" : "rgba(100,100,150,0.3)"}`,
+                    borderBottom: `3px solid ${selected ? "rgba(220,0,255,1)" : "rgba(80,80,130,0.5)"}`,
+                    minWidth: 70, opacity: hasAmmo ? 1 : 0.3,
+                    boxShadow: selected
+                      ? "0 6px 20px rgba(150,0,255,0.7), inset 0 1px 0 rgba(200,0,255,0.5)"
+                      : "0 3px 10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(150,150,200,0.15)",
+                    transform: selected ? "translateY(-5px)" : "translateY(0)",
+                    transition: "all 0.15s ease",
+                  }}
+                  onMouseDown={e => { if (hasAmmo) { e.currentTarget.style.transform = "translateY(2px)"; e.currentTarget.style.borderBottom = `1px solid ${selected ? "rgba(220,0,255,1)" : "rgba(80,80,130,0.5)"}`; } }}
+                  onMouseUp={e => { if (hasAmmo) { e.currentTarget.style.transform = selected ? "translateY(-5px)" : "translateY(0)"; e.currentTarget.style.borderBottom = `3px solid ${selected ? "rgba(220,0,255,1)" : "rgba(80,80,130,0.5)"}`; } }}
+                >
                   <div className="text-2xl mb-1">{weapon.icon}</div>
                   <div className="text-white text-xs font-bold whitespace-nowrap">{weapon.name}</div>
                   <div className="text-purple-300 text-xs mt-1">{playSubMode === "sandbox" ? "∞" : ammo[w]}</div>
@@ -1350,7 +1376,9 @@ export default function Index() {
           {playSubMode === "multiplayer" && (
             <div className="absolute bottom-32 right-6 z-10">
               <button onClick={switchMultiPlayer} className="px-4 py-2 text-white text-sm font-bold tracking-widest"
-                style={{ background: "rgba(200,100,0,0.4)", border: "1px solid rgba(255,200,0,0.5)" }}>
+                style={{ background: "linear-gradient(180deg,rgba(255,160,0,0.45) 0%,rgba(180,80,0,0.25) 100%)", border: "1px solid rgba(255,200,0,0.6)", borderBottom: "3px solid rgba(255,200,0,0.9)", boxShadow: "0 4px 14px rgba(255,150,0,0.4), inset 0 1px 0 rgba(255,220,0,0.4)", textShadow: "0 0 8px rgba(255,200,0,0.8)" }}
+                onMouseDown={e => { e.currentTarget.style.transform = "translateY(2px)"; e.currentTarget.style.borderBottom = "1px solid rgba(255,200,0,0.9)"; }}
+                onMouseUp={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.borderBottom = "3px solid rgba(255,200,0,0.9)"; }}>
                 ПЕРЕДАТЬ ХОД →
               </button>
             </div>
@@ -1374,13 +1402,19 @@ export default function Index() {
               {playSubMode === "campaign" && currentLevel + 1 < campaignLevels.length && (
                 <button onClick={() => handleVictory(true)}
                   className="px-6 py-3 text-white font-bold tracking-widest"
-                  style={{ background: "linear-gradient(135deg,rgba(102,0,204,0.5),rgba(50,0,120,0.9))", border: "1px solid rgba(200,0,255,0.6)" }}>
+                  style={{ background: "linear-gradient(180deg,rgba(180,0,255,0.55) 0%,rgba(80,0,180,0.3) 100%)", border: "1px solid rgba(200,0,255,0.7)", borderBottom: "4px solid rgba(200,0,255,1)", boxShadow: "0 6px 20px rgba(150,0,255,0.6), inset 0 1px 0 rgba(200,0,255,0.5)", textShadow: "0 0 10px rgba(200,0,255,0.9)" }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = ""; }}
+                  onMouseDown={e => { e.currentTarget.style.transform = "translateY(3px)"; e.currentTarget.style.borderBottom = "1px solid rgba(200,0,255,1)"; }}
+                  onMouseUp={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.borderBottom = "4px solid rgba(200,0,255,1)"; }}>
                   СЛЕДУЮЩИЙ →
                 </button>
               )}
               <button onClick={() => handleVictory(false)}
                 className="px-6 py-3 text-white/70 font-bold tracking-widest"
-                style={{ border: "1px solid rgba(100,100,150,0.4)" }}>
+                style={{ background: "linear-gradient(180deg,rgba(100,100,150,0.3) 0%,rgba(40,40,80,0.2) 100%)", border: "1px solid rgba(100,100,150,0.5)", borderBottom: "3px solid rgba(120,120,180,0.7)", boxShadow: "0 4px 14px rgba(80,80,120,0.4), inset 0 1px 0 rgba(150,150,200,0.3)" }}
+                onMouseDown={e => { e.currentTarget.style.transform = "translateY(2px)"; e.currentTarget.style.borderBottom = "1px solid rgba(120,120,180,0.7)"; }}
+                onMouseUp={e => { e.currentTarget.style.transform = ""; e.currentTarget.style.borderBottom = "3px solid rgba(120,120,180,0.7)"; }}>
                 В МЕНЮ
               </button>
             </div>
